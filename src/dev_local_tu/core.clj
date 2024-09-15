@@ -63,7 +63,7 @@
   "Releases all DBs."
   [client system]
   (doseq [db-name (d/list-databases client {})]
-    ;; https://docs.datomic.com/cloud/datomic-local.html#release-db
+    ;; See "https://docs.datomic.com/api/datomic-local.html#release-db"
     (datomic.local/release-db
       {:system system :db-name db-name})))
 
@@ -95,8 +95,8 @@
 
    When closed, the test environment will release the resources used by the client
    and delete the data directory."
-  ([] (test-env {}))
-  ([env-argm]
+  (^TestEnv [] (test-env {}))
+  (^TestEnv [env-argm]
    (let [env (-new-env-map env-argm)]
      (map->TestEnv env))))
 

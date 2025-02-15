@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.clojars.marksto</groupId>
   <artifactId>datomic-local-tu</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <name>datomic-local-tu</name>
   <dependencies>
     <dependency>
@@ -17,7 +17,7 @@
   </build>
   <scm>
     <url>https://github.com/marksto/datomic-local-tu/</url>
-    <tag>f38f96dec3a8a12c0109c65707651c019ab614f8</tag>
+    <tag>aa65bae785704447a497e1552dadc87ba8235ce8</tag>
   </scm>
   <repositories>
     <repository>

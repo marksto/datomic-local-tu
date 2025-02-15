@@ -1,4 +1,4 @@
-(ns dev-local-tu.internal.impl
+(ns datomic-local-tu.internal.impl
   (:require [clojure.java.io :as io])
   (:import (java.nio.file Files SimpleFileVisitor FileVisitResult)
            (java.security SecureRandom)

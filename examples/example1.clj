@@ -2,10 +2,10 @@
   (:require
     [clojure.test :refer :all]
     [datomic.client.api :as d]
-    [dev-local-tu.core :as dev-local-tu]))
+    [datomic-local-tu.core :as datomic-local-tu]))
 
 (deftest test1
-  (with-open [db-env (dev-local-tu/test-env)]
+  (with-open [db-env (datomic-local-tu/test-env)]
     (let [_ (d/create-database (:client db-env) {:db-name "test"})
           conn (d/connect (:client db-env) {:db-name "test"})
           _ (d/transact conn {:tx-data [{:db/ident       ::name

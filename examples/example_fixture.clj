@@ -2,13 +2,13 @@
   (:require
     [clojure.test :refer :all]
     [datomic.client.api :as d]
-    [dev-local-tu.core :as dev-local-tu]))
+    [datomic-local-tu.core :as datomic-local-tu]))
 
 (def ^:dynamic *client* nil)
 
 (defn client-fixture
   [f]
-  (with-open [db-env (dev-local-tu/test-env)]
+  (with-open [db-env (datomic-local-tu/test-env)]
     (binding [*client* (:client db-env)]
       (f))))
 

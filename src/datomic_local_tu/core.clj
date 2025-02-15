@@ -1,41 +1,42 @@
-(ns dev-local-tu.core
+(ns datomic-local-tu.core
+  "Test utility for Datomic Local"
   (:require
     [clojure.string :as str]
     [datomic.client.api :as d]
     [datomic.local]
     [clojure.java.io :as io]
-    [dev-local-tu.internal.impl :as impl])
+    [datomic-local-tu.internal.impl :as impl])
   (:import (java.io Closeable File)))
 
 (defn gen-name!
   [prefix]
   (str prefix "-" (impl/rand-str! 7)))
 
-(def default-datomic-dev-local-storage-dir
+(def default-datomic-local-storage-dir
   (.getAbsolutePath (io/file (System/getProperty "user.home") ".datomic" "data")))
 
-(defn dev-local-directory
+(defn datomic-local-dir
   ^File [{:keys [system-name db-name storage-dir]
-          :or   {storage-dir default-datomic-dev-local-storage-dir}}]
+          :or   {storage-dir default-datomic-local-storage-dir}}]
   (let [file-args (cond-> [storage-dir]
-                    system-name (conj system-name)
-                    db-name (conj db-name))]
+                          system-name (conj system-name)
+                          db-name (conj db-name))]
     (apply io/file file-args)))
 
 (defn -new-env-map
   [{:keys [prefix system storage-dir]
-    :or   {prefix "dev-local"}}]
+    :or   {prefix "datomic-local"}}]
   (let [system (or system (gen-name! prefix))
         storage-dir (if (or
                           (= storage-dir :mem)
                           (and storage-dir
-                            (str/starts-with? storage-dir "/")))
+                               (str/starts-with? storage-dir "/")))
                       storage-dir
                       (.getAbsolutePath
-                        (dev-local-directory
+                        (datomic-local-dir
                           (cond-> {}
-                            storage-dir
-                            (assoc ::storage-dir storage-dir)))))
+                                  storage-dir
+                                  (assoc ::storage-dir storage-dir)))))
         client-map {:server-type :datomic-local
                     :system      system
                     :storage-dir storage-dir}]
@@ -44,13 +45,13 @@
      :system      system
      :storage-dir storage-dir}))
 
-(defn delete-dev-local-system!
-  "Deletes a :dev-local system's data. Always returns true. Throws on failure."
+(defn delete-datomic-local-system!
+  "Deletes a `:datomic-local` system's data. Always returns true. Throws on failure."
   ([system-name]
-   (delete-dev-local-system! system-name default-datomic-dev-local-storage-dir))
+   (delete-datomic-local-system! system-name default-datomic-local-storage-dir))
   ([system-name storage-dir]
-   (let [f (dev-local-directory {:system-name system-name
-                                 :storage-dir storage-dir})]
+   (let [f (datomic-local-dir {:system-name system-name
+                               :storage-dir storage-dir})]
      (when (.exists ^File f)
        (impl/delete-directory! f))
      true)))
@@ -72,7 +73,7 @@
   [{:keys [client system client-map]}]
   (release-dbs client system)
   (when (string? (:storage-dir client-map))
-    (delete-dev-local-system! system)))
+    (delete-datomic-local-system! system)))
 
 (defrecord TestEnv [system client]
   Closeable

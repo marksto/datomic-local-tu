@@ -1,29 +1,30 @@
-# dev-local-tu
+# datomic-local-tu
 
-Test utility for Datomic dev-local. 
+Test utility for Datomic Local.
 
 ```clojure
 dev-local-tu {:mvn/version "0.3.0"}
 ```
 
-## Rationale 
+## Rationale
 
-Datomic dev-local provides a way to create clean environments useful for testing.
-It does not provide a methodology for how to use it. 
-This library provides an opinionated way to use dev-local in your tests.
+Datomic Local provides a way to create clean environments useful for testing.
+It does not provide a methodology for how to use it.
+This library provides an opinionated way to use `:datomic-local` in your tests.
 
 ## Usage
 
-The primary function exposed by the api is `test-env`. 
+The primary function exposed by the api is `test-env`.
 This function returns a test environment.
-A test environment will contain a Datomic client, created by dev local, that can be cleaned up by simply calling `.close`.
+A test environment will contain a Datomic client, created by Datomic Local,
+that can be cleaned up by simply calling `.close`.
 A test environment is typically used within a `with-open`.
 
 ```clojure
-(require '[dev-local-tu.core :as dev-local-tu]
+(require '[datomic-local-tu.core :as datomic-local-tu]
          '[datomic.client.api :as d])
 
-(with-open [db-env (dev-local-tu/test-env)]
+(with-open [db-env (datomic-local-tu/test-env)]
   (let [_ (d/create-database (:client db-env) {:db-name "test"})
         conn (d/connect (:client db-env) {:db-name "test"})
         _ (d/transact conn {:tx-data [{:db/ident       ::name
@@ -37,9 +38,10 @@ A test environment is typically used within a `with-open`.
 => #:example1{:name "hi"}
 ```
 
-If you would prefer to manage the lifecycle, use `new-env` to generate a new, random system and `cleanup-env!` to remove the associated resources.
+If you would prefer to manage the lifecycle, use `new-env` to generate a new,
+random system and `cleanup-env!` to remove the associated resources.
 
-Alternatively, you can use test-env with fixtures. 
+Alternatively, you can use test-env with fixtures.
 See `examples/example_fixture.clj` for the complete example.
 
 ```clojure
@@ -47,9 +49,13 @@ See `examples/example_fixture.clj` for the complete example.
 
 (defn client-fixture
   [f]
-  (with-open [db-env (dev-local-tu/test-env)]
+  (with-open [db-env (datomic-local-tu/test-env)]
     (binding [*client* (:client db-env)]
       (f))))
 
 (use-fixtures :each client-fixture)
 ```
+
+## Author
+
+Kenny Williams @kennyjwilli

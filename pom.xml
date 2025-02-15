@@ -15,6 +15,10 @@
   <build>
     <sourceDirectory>src</sourceDirectory>
   </build>
+  <scm>
+    <url>https://github.com/marksto/dev-local-tu/</url>
+    <tag>f38f96dec3a8a12c0109c65707651c019ab614f8</tag>
+  </scm>
   <repositories>
     <repository>
       <id>clojars</id>

@@ -3,7 +3,7 @@
 Test utility for Datomic Local.
 
 ```clojure
-dev-local-tu {:mvn/version "0.3.0"}
+org.clojars.marksto/datomic-local-tu {:mvn/version "1.0.0"}
 ```
 
 ## Rationale

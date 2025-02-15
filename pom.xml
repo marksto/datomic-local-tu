@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>dev-local-tu</groupId>
-  <artifactId>dev-local-tu</artifactId>
-  <version>0.3.0</version>
-  <name>dev-local-tu</name>
+  <groupId>org.clojars.marksto</groupId>
+  <artifactId>datomic-local-tu</artifactId>
+  <version>1.0.0</version>
+  <name>datomic-local-tu</name>
   <dependencies>
     <dependency>
       <groupId>org.clojure</groupId>
@@ -20,5 +20,15 @@
       <id>clojars</id>
       <url>https://repo.clojars.org/</url>
     </repository>
+    <repository>
+      <id>datomic-cloud</id>
+      <url>s3://datomic-releases-1fc2183a/maven/releases</url>
+    </repository>
   </repositories>
+  <licenses>
+    <license>
+      <name>Eclipse Public License</name>
+      <url>http://www.eclipse.org/legal/epl-v10.html</url>
+    </license>
+  </licenses>
 </project>
